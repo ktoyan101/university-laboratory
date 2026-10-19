@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Архив записей</title>
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+<body class="archive">
+    <div class="archive-content">
+
+        <header class="site-header">
+            <a href="{% url 'archive' %}">Архив записей</a>
+
+            <div class="auth-links">
+                {% if user.is_authenticated %}
+                    <span>Пользователь: {{ user.username }}</span>
+                    <a href="{% url 'user_logout' %}">Выход</a>
+                {% else %}
+                    <a href="{% url 'register' %}">Зарегистрироваться</a>
+                    <a href="{% url 'user_login' %}">Авторизация</a>
+                {% endif %}
+            </div>
+        </header>
+
+        <h1>Архив записей</h1>
+
+        {% if user.is_authenticated %}
+            <p>
+                <a href="{% url 'create_post' %}">Создать запись</a>
+            </p>
+        {% endif %}
+
+        {% for article in articles %}
+            <article>
+                <h2>
+                    <a href="{% url 'get_article' article.id %}">
+                        {{ article.title }}
+                    </a>
+                </h2>
+
+                <p>
+                    Автор: {{ article.author }}
+                </p>
+
+                <p>
+                    {{ article.text|truncatewords:30 }}
+                </p>
+            </article>
+        {% empty %}
+            <p>Статей пока нет.</p>
+        {% endfor %}
+
+    </div>
+</body>
+</html>

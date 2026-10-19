@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>University Blog - создать статью</title>
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+
+<body class="create-post">
+
+<div class="header">
+    <img src="{% static 'images/lab-image.svg' %}" alt="Логотип">
+</div>
+
+<div class="create-post-content">
+
+    <div class="top-navigation">
+        <a href="{% url 'archive' %}">Архив записей</a>
+    </div>
+
+    <h1>Создать запись</h1>
+
+    {% if form.errors %}
+        <div class="form-error">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-field">
+            <label for="title">Название статьи</label>
+            <input
+                id="title"
+                type="text"
+                name="title"
+                placeholder="Название статьи"
+                value="{{ form.title }}"
+            >
+        </div>
+
+        <div class="form-field">
+            <label for="text">Текст статьи</label>
+            <textarea
+                id="text"
+                name="text"
+                placeholder="Текст статьи"
+            >{{ form.text }}</textarea>
+        </div>
+
+        <input
+            type="submit"
+            value="Сохранить"
+            class="submit-button"
+        >
+    </form>
+
+</div>
+
+</body>
+</html>

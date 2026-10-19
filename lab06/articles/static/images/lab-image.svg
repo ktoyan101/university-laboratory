@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100" viewBox="0 0 300 100">
+    <rect width="300" height="100" fill="#3498db"/>
+    <text x="150" y="60"
+          text-anchor="middle"
+          font-family="Arial"
+          font-size="32"
+          fill="white">
+        Django Lab 2
+    </text>
+</svg>

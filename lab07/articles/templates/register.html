@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Зарегистрироваться</title>
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+<body class="archive">
+    <div class="archive-content">
+        <header class="site-header">
+            <a href="{% url 'archive' %}">Архив записей</a>
+
+            <div class="auth-links">
+                {% if user.is_authenticated %}
+                    <span>{{ user.username }}</span>
+                    <a href="{% url 'user_logout' %}">Выход</a>
+                {% else %}
+                    <a href="{% url 'user_login' %}">Авторизация</a>
+                {% endif %}
+            </div>
+        </header>
+
+        <h1>Зарегистрироваться</h1>
+
+        {% if form.errors %}
+            <div class="form-error">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+
+            <label for="username">Логин:</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                value="{{ form.username }}"
+            >
+
+            <label for="email">Email:</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ form.email }}"
+            >
+
+            <label for="password">Пароль:</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+            >
+
+            <label for="password_confirm">Повторите пароль:</label>
+            <input
+                type="password"
+                id="password_confirm"
+                name="password_confirm"
+            >
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+
+        <p>
+            Уже есть аккаунт?
+            <a href="{% url 'user_login' %}">Авторизация</a>
+        </p>
+    </div>
+</body>
+</html>

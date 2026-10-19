@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+</head>
+<body class="archive">
+    <div class="archive-content">
+        <header class="site-header">
+            <a href="{% url 'archive' %}">Архив записей</a>
+
+            <div class="auth-links">
+                <a href="{% url 'register' %}">Зарегистрироваться</a>
+            </div>
+        </header>
+
+        <h1>Авторизация</h1>
+
+        {% if form.errors %}
+            <div class="form-error">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+
+            <label for="username">Логин:</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                value="{{ form.username }}"
+            >
+
+            <label for="password">Пароль:</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+            >
+
+            <button type="submit">Авторизация</button>
+        </form>
+
+        <p>
+            Нет аккаунта?
+            <a href="{% url 'register' %}">Зарегистрироваться</a>
+        </p>
+    </div>
+</body>
+</html>
